@@ -1,0 +1,15 @@
+{{ block title }}
+    Time
+{{ endblock }}
+
+{{ block content }}
+
+{{if player.time == -99}}
+<p>You have not read the pdf</p>
+{{else}}
+<p>Time is {{player.time}}ms</p>
+{{endif}}
+    {{ next_button }}
+{{ endblock }}
+
+

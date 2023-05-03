@@ -1,0 +1,45 @@
+{{ block title }}
+    Button Example
+{{ endblock }}
+{{ block content }}
+
+<h4>Show the pdf here</h4>
+
+
+<button onclick="showPdf()" type="button">Show PDF</button>
+<div id="pdf-embed" style="display: none">
+    <embed src="{{static pdf_path}}" type="application/pdf" width="100%" height="600px" />
+</div>
+<br><br><br>
+
+<button onclick="nextPage()" class="otree-btn-next btn btn-primary">Next Page</button>
+
+<script>
+    let buttonClicked = false;
+    let buttonClickTime;
+
+    function showPdf() {
+        if (!buttonClicked) {
+
+        buttonClicked = true;
+        buttonClickTime = Date.now();
+        document.getElementById("pdf-embed").style.display = "block";
+        console.log("Button clicked at " + new Date(buttonClickTime).toLocaleTimeString());
+        }
+    }
+
+    function nextPage() {
+        if (buttonClicked) {
+            const nextPageTime = Date.now();
+            const timeDiff = nextPageTime - buttonClickTime;
+            console.log("Next page clicked at " + new Date(nextPageTime).toLocaleTimeString());
+            console.log("Time between clicks: " + timeDiff + "ms");
+            document.querySelector(".otree-btn-next").click();
+            liveSend(timeDiff);
+        } else {
+            liveSend(-99);
+        }
+    }
+</script>
+
+{{ endblock }}
